@@ -1,17 +1,64 @@
 /.ipynb_checkpoints
 /.vscode
 /.idea/
-*.pyc
+
+# OS/editor artifacts
+.DS_Store
+**/.DS_Store
+.vscode/
+.idea/
+
+# Python artifacts
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Notebooks
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+opentf_venv/
+
+# Project data and generated artifacts
+data/
+output/
+outputs/
+logs/
+cache/
+*.log
+*.csv
+*.tsv
+*.jsonl
 *.npz
 *.npy
 *.rar
+
+# Model checkpoints and large ML artifacts
+checkpoints/
+models/
+model_checkpoints/
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.onnx
+
+# Secrets and local environment files
+.env
+.env.*
+*.pem
+*.key
+secrets/
+
+# Documentation/tutorial builds
 docs/tutorial/*/node_modules/
 docs/tutorial/*/.idea/
 docs/tutorial/*/build/
-data/dblp/dblp.v12.json
-data/
-output/
-*/.DS_Store
-*/__pycache__/
-*.log
-*.csv

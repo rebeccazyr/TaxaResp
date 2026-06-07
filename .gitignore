@@ -19,3 +19,6 @@ data/uspt/location.tsv
 data/uspt/patent.tsv
 data/uspt/patent_inventor.tsv
 data/gith/repos.csv
+output/
+*/.DS_Store
+*/__pycache__/

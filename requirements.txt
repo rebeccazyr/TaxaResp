@@ -3,6 +3,8 @@
 hydra-core==1.3.2
 scipy==1.10.1
 numpy==1.24.4 #cannot go above for gensim
+networkx==3.2.1 #citation community detection for soft-groundtruth evaluation
+python-igraph==1.0.0 #fast global Louvain blocks for full 13,815-expert citation graph
 
 #########on-demand packages
 #$ python-dateutil==2.9.0
@@ -70,4 +72,3 @@ numpy==1.24.4 #cannot go above for gensim
 #$ fairsearchcore==1.0.4@git+https://github.com/fani-lab/fairsearch-fair-python.git # till pr merge, due to the __hash__ bug explained in https://github.com/fair-search/fairsearch-fair-python/issues/4
 ##$ fairsearchcore==1.0.4 #https://github.com/fair-search/fairsearch-fair-python
 ##$ FairRankTune #https://pypi.org/project/FairRankTune/ #https://github.com/KCachel/FairRankTune #python 3.9+
-

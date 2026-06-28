@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Embedding BFS Unique Assignment Visualizer</title>
+    <link rel="stylesheet" href="/style.css?v=20260609_hits" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">OpeNTF local visualization</p>
+            <h1>embedding_bfs_unique_assign_each_node_then_top_team_size_by_weighted_score</h1>
+          </div>
+          <div class="status" id="status">Loading method outputs</div>
+        </header>
+
+        <section class="method-grid">
+          <div class="form-panel">
+            <label for="paperSelect">Task / paper</label>
+            <select id="paperSelect"></select>
+
+            <div class="method-steps">
+              <div class="step active"><span>1</span>Read task taxonomy nodes in BFS order</div>
+              <div class="step active"><span>2</span>Use existing no-label task-node embeddings</div>
+              <div class="step active"><span>3</span>Find best same-node expert by cosine similarity</div>
+              <div class="step active"><span>4</span>Keep each expert only once per task</div>
+              <div class="step active"><span>5</span>Select top team_size experts by weighted_score</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="results-head">
+          <div>
+            <p class="eyebrow">Precomputed BFS unique assignment flow</p>
+            <h2 id="paperTitle">Task detail</h2>
+          </div>
+          <div id="runMeta"></div>
+        </section>
+
+        <section id="summaryCards" class="summary-cards"></section>
+
+        <section class="viz-layout">
+          <section class="viz-panel">
+            <h3>BFS taxonomy nodes</h3>
+            <div id="taskNodes" class="data-list"></div>
+          </section>
+
+          <section class="viz-panel">
+            <h3>Selected node assignment</h3>
+            <div id="nodeDetail" class="node-detail empty">
+              <p>Click a taxonomy node to inspect its assignment.</p>
+            </div>
+          </section>
+        </section>
+      </section>
+    </main>
+    <script src="/app.js?v=20260609_hits"></script>
+  </body>
+</html>

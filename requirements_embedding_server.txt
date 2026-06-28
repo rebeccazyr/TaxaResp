@@ -6,3 +6,4 @@ transformers
 adapters
 sentence-transformers
 openai
+together

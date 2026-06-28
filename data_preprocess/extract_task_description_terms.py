@@ -44,32 +44,37 @@ DEFAULT_INPUT = REPO_ROOT / "data" / "dblp_new" / "cs_paper_with_author_publishe
 DEFAULT_OUTPUT = Path(__file__).resolve().with_name("task_description_terms.csv")
 
 CATEGORY_DESCRIPTIONS = {
-    "data": "Datasets, input data types, or data sources mentioned in the abstract.",
-    "task": "Specific computational problems or learning tasks addressed.",
-    "method": "Named algorithms, models, or techniques employed.",
-    "domain": "Application areas or scientific domains discussed.",
+    "data": "datasets, input data types, or data sources mentioned in the abstract",
+    "task": "computational problems or machine learning tasks addressed by the paper",
+    "method": "algorithms, models, techniques, or theoretical frameworks used or proposed",
+    "domain": "application domains or fields (e.g., healthcare, NLP, telecommunications)",
 }
 
 CATEGORY_KEYS: Tuple[str, ...] = tuple(CATEGORY_DESCRIPTIONS.keys())
-CATEGORY_LIMITS = {key: 4 for key in CATEGORY_KEYS}
+CATEGORY_LIMITS = {key: 3 for key in CATEGORY_KEYS}
 
 SYSTEM_PROMPT = (
     "You are an expert research assistant for computer science literature analysis.\n\n"
-    "Your task is to identify the key technical concepts from a research abstract "
-    "and categorize them into four semantic groups.\n\n"
+    "Your task is to extract precise academic terms or short noun phrases from a paper abstract "
+    "and categorize them into four semantic categories.\n\n"
     "Extraction rules:\n"
-    "- Prefer specific technical terms commonly used in computer science literature.\n"
-    "- Terms should usually be 2–4 words long (avoid single-word summaries).\n"
-    "- It is acceptable to copy phrases directly from the abstract if they are clear technical terms.\n"
-    "- Avoid overly generic words such as: modeling, training, computation, estimation, data, system.\n"
-    "- Do NOT generate explanations or paraphrased summaries.\n"
-    "- If the abstract does not contain evidence for a category, return an empty array.\n\n"
+    "- Each phrase must be a contiguous span copied exactly from the abstract text.\n"
+    "- Do NOT paraphrase or generate new phrases.\n"
+    "- Extract concise academic terms (1–6 words).\n"
+    "- Prefer canonical research terminology commonly used in computer science literature.\n"
+    "- Avoid vague phrases such as \"technical challenges\", \"approaches\", \"future work\".\n"
+    "- Avoid generic method words such as \"algorithm\", \"method\", \"approach\", or \"framework\" "
+    "unless they are part of a specific academic term.\n"
+    "- If a category is not present in the abstract, return [].\n\n"
     "Categories:\n"
-    "data: datasets, input data types, or data sources (e.g., 'point cloud data', 'query logs').\n"
-    "task: specific computational problems or learning tasks (e.g., 'text classification').\n"
-    "method: named algorithms, models, or techniques (e.g., 'Expectation-Maximization').\n"
-    "domain: application areas or scientific domains (e.g., 'computer vision', 'cryptography').\n\n"
-    "Return ONLY JSON with keys: ['data','task','method','domain']."
+    "data: datasets, input data types, or data sources mentioned in the abstract\n"
+    "task: computational problems or machine learning tasks addressed by the paper\n"
+    "method: specific named algorithms, models, or techniques used or proposed\n"
+    "domain: established research fields or application domains\n\n"
+    "Return ONLY valid JSON with exactly these keys:\n"
+    "[\"data\", \"task\", \"method\", \"domain\"]\n\n"
+    "Each value must contain at most 3 phrases.\n"
+    "If more than 3 candidates exist, select the three most central and specific terms."
 )
 
 def parse_args() -> argparse.Namespace:
@@ -252,7 +257,7 @@ def _fallback_terms_from_text(text: str) -> List[str]:
     cleaned = []
     for candidate in candidates:
         term = candidate.strip().strip("-•* ")
-        if term and len(term.split()) <= 8:
+        if term and len(term.split()) <= 6:
             cleaned.append(term)
     return cleaned[:12]
 
@@ -288,8 +293,8 @@ def _normalize_terms_from_list(terms: Sequence[str], limit: int) -> List[str]:
         if not normalized:
             continue
         words = normalized.split()
-        if len(words) > 4:
-            normalized = " ".join(words[:4])
+        if len(words) > 6:
+            normalized = " ".join(words[:6])
             words = normalized.split()
         target_list = preferred if len(words) >= 2 else fallback
         if normalized not in preferred and normalized not in fallback:

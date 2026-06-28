@@ -43,6 +43,10 @@ cache/
 data_preprocess/*_terms.txt
 data_preprocess/clustered_terms/
 
+# Large media and bundled sample datasets
+*.mp4
+src/mdl/baseline/caser_pytorch/datasets/ml1m/
+
 # Model checkpoints and large ML artifacts
 checkpoints/
 models/

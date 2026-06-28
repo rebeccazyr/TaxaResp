@@ -40,6 +40,8 @@ cache/
 *.npz
 *.npy
 *.rar
+data_preprocess/*_terms.txt
+data_preprocess/clustered_terms/
 
 # Model checkpoints and large ML artifacts
 checkpoints/

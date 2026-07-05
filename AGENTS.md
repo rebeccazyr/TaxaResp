@@ -33,7 +33,14 @@
 
 ## Data Inventory
 
-- `data/dblp/`: DBLP publication/team formation data.
+- `kdd/`: clean workspace for new KDD-focused code and experiments. Use
+  `kdd/src/` for reusable code, `kdd/scripts/` for runnable entrypoints, and
+  `kdd/data/`, `kdd/outputs/`, `kdd/logs/`, and `kdd/cache/` for local data and
+  generated artifacts.
+- `kdd/data/dblp/dblp.v12.json`: full DBLP v12 JSON. The legacy path
+  `data/dblp/dblp.v12.json` is kept as a compatibility symlink for existing
+  scripts.
+- `data/dblp/`: legacy DBLP publication/team formation data and taxonomy files.
 - `data/uspt/`: USPTO patent data.
 - `data/imdb/`: IMDb movie/cast data.
 - `data/gith/`: GitHub repository/developer data.
@@ -222,6 +229,15 @@ python scripts/evaluate_expert_citation_louvain_blocks.py \
 ```bash
 python scripts/analyze_test_author_citation_block_dispersion.py \
   --out-dir output/test_author_citation_block_dispersion_r2
+```
+
+- Prompt generation for direct, pre-completion FoS task nodes on the level-1
+  direct-FoS cross-domain filtered test set. By default this writes prompts
+  only for the first three papers and does not call an LLM; add `--generate`
+  after checking prompts to call the configured backend:
+
+```bash
+python scripts/generate_direct_fos_node_role_descriptions.py
 ```
 
 - Owner-gain taxonomy region-cut evaluation on the 2020plus test set:

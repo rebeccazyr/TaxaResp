@@ -1,0 +1,31 @@
+# Local KDD data and generated artifacts.
+data/
+outputs/
+output/
+logs/
+cache/
+
+# Python/runtime artifacts.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS/editor artifacts.
+.DS_Store
+.ipynb_checkpoints/
+
+# Local environments, checkpoints, and secrets.
+.venv/
+venv/
+opentf_venv/
+checkpoints/
+models/
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+.env
+.env.*
+secrets/
